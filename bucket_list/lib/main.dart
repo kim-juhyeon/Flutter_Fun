@@ -66,12 +66,11 @@ class _HomePageState extends State<HomePage> {
                     icon: Icon(CupertinoIcons.delete),
                     onPressed: () {
                       // 삭제 버튼 클릭시
-                      print('$bucket : 삭제하기');
+                      showDeleteDialog(context, index);
                     },
                   ),
                   onTap: () {
                     // 아이템 클릭시
-
                     setState(() {
                       bucket.isDone = !bucket.isDone; //isDone 상태변경
                     });
@@ -95,6 +94,36 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
+    );
+  }
+
+  void showDeleteDialog(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("정말로 삭제하시겠습니까?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("취소"),
+            ),
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    bucketList.removeAt(index);
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "확인",
+                  style: TextStyle(color: Colors.pink),
+                )),
+          ],
+        );
+      },
     );
   }
 }
