@@ -26,7 +26,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String quiz = ""; //보여줄 퀴즈
+  String quiz = "";
+  @override
+  void initsState() {
+    super.initState();
+    getQuiz();
+  }
+
+  /// 퀴즈 가져오기
+  void getQuiz() async {
+    String trivia = await getNumberTrivia();
+    setState(() {
+      quiz = trivia;
+    });
+  }
+  //보여줄 퀴즈
 
   /// Number API
   Future<String> getNumberTrivia() async {
@@ -39,52 +53,53 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        color: Colors.pinkAccent,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // quiz
-            Expanded(
-              child: Center(
-                child: Text(
-                  "quiz",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          color: Colors.pinkAccent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // quiz
+              Expanded(
+                child: Center(
+                  child: Text(
+                    quiz,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-            // New Quiz 버튼
-            SizedBox(
-              height: 42,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-                onPressed: () async {
-                  // New Quiz 클릭시 퀴즈 가져오기
-                  String trivia = await getNumberTrivia();
-                  setState(() {
-                    //화면을 갱신해야 하므로 setstate
-                    quiz = trivia;
-                  });
-                  //가
-                  // New Quiz 클릭시 퀴즈 가져오기
-                },
-                child: Text(
-                  "New Quiz",
-                  style: TextStyle(
-                    color: Colors.pinkAccent,
-                    fontSize: 24,
+              // New Quiz 버튼
+              SizedBox(
+                height: 42,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  onPressed: () {
+                    // New Quiz 클릭시 퀴즈 가져오기
+                    // getNumberTrivia 함수를 동기적으로 실행하기 위해 await 을 앞에 붙이고,
+                    // on pressed 함수에 async
+                    // String triva를 quiz를 할당
+                    getQuiz();
+                    //가
+                    // New Quiz 클릭시 퀴즈 가져오기
+                  },
+                  child: Text(
+                    "New Quiz",
+                    style: TextStyle(
+                      color: Colors.pinkAccent,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
