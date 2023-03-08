@@ -1,16 +1,14 @@
 # boy_space
 
-A new Flutter project.
+해당 프로젝트 청년공간 오픈 api를 dio를 이용하여 가져와 활용하는 프로젝트입니다.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## first commit
+지역 코드 - 서울 파라미터만 이용
+최초 api xml확장자를 가지고 있어, xml 파싱 활용
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [청년공간 오픈 api 로그인필요](https://www.youthcenter.go.kr/opi/openApiSpace.do)
+
+## second commit
