@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void boy_space() async {
     var result = await Dio().get(
-      "https://www.youthcenter.go.kr/opi/wantedSpace.do?pageIndex=1&display=28&pageType=1&srchAreaCpvn=003002001&openApiVlak=687a1e8788e29f1525bf4c18",
+      "https://www.youthcenter.go.kr/opi/wantedSpace.do?pageIndex=1&display=28&pageType=1&srchAreaCpvn", // 비밀
     );
     final spaceXml = result.data.toString();
     final document = XmlDocument.parse(spaceXml);
