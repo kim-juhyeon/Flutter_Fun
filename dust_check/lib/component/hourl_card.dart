@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'card_title.dart';
+import 'main_card.dart';
+
 class HourlCard extends StatelessWidget {
   const HourlCard({super.key});
 
