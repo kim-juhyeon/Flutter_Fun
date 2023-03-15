@@ -1,9 +1,19 @@
+import 'package:dust_check/model/stat_model.dart';
+import 'package:dust_check/model/status_models.dart';
+import 'package:dust_check/utils/data.utils.dart';
 import 'package:flutter/material.dart';
 
-import '../const/colors.dart';
-
 class MainAppBar extends StatelessWidget {
-  const MainAppBar({super.key});
+  final String region;
+  final StatusModel status;
+  final StatModel stat;
+
+  const MainAppBar({
+    required this.region,
+    required this.status,
+    required this.stat,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +23,7 @@ class MainAppBar extends StatelessWidget {
       fontSize: 30.0,
     );
     return SliverAppBar(
-      backgroundColor: primaryColor,
+      backgroundColor: status.primaryColor,
       expandedHeight: 500,
       flexibleSpace: FlexibleSpaceBar(
         background: SafeArea(
@@ -26,23 +36,23 @@ class MainAppBar extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '서울',
+                  region,
                   style: ts.copyWith(
                     fontSize: 40.0,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
-                  DateTime.now().toString(),
+                  DataUtils.getTimeFromDateTime(dateTime: stat.dataTime),
                   style: ts.copyWith(fontSize: 20.0),
                 ),
                 const SizedBox(height: 20.0),
                 Image.asset(
-                  'asset/img/mediocre.png',
+                  status.imagePath,
                   width: MediaQuery.of(context).size.width / 2,
                 ),
                 Text(
-                  '보통',
+                  status.label,
                   style:
                       ts.copyWith(fontSize: 40.0, fontWeight: FontWeight.w700),
                 ),
@@ -50,7 +60,7 @@ class MainAppBar extends StatelessWidget {
                   height: 8.0,
                 ),
                 Text(
-                  '나쁘지 않네요!',
+                  status.Comment,
                   style:
                       ts.copyWith(fontSize: 20.0, fontWeight: FontWeight.w700),
                 )

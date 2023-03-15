@@ -1,28 +1,21 @@
 import 'package:dust_check/const/colors.dart';
 import 'package:flutter/material.dart';
 
-const regions = [
-  '서울',
-  '경기',
-  '대구',
-  '충남',
-  '인천',
-  '대전',
-  '경북',
-  '세종',
-  '광주',
-  '전북',
-  '강원',
-  '울산',
-  '전남',
-  '부산',
-  '제주',
-  '충북',
-  '경남',
-]; //api로 데이터가 정리가 된다 한들 내부에서 정리가 필요함 , 로우데이터일 경우에는 필수
+import '../const/regions.dart';
+
+typedef OnRegionTap = void Function(String region);
+
+//api로 데이터가 정리가 된다 한들 내부에서 정리가 필요함 , 로우데이터일 경우에는 필수
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  final OnRegionTap onRegionTap;
+  final String selectedRegion;
+
+  const MainDrawer({
+    required this.onRegionTap,
+    required this.selectedRegion,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +39,10 @@ class MainDrawer extends StatelessWidget {
                   tileColor: Colors.white,
                   selectedTileColor: lightColor,
                   selectedColor: Colors.black,
-                  selected: e == '서울',
-                  onTap: () {},
+                  selected: e == selectedRegion,
+                  onTap: () {
+                    onRegionTap(e);
+                  },
                   title: Text(
                     e,
                   ),
