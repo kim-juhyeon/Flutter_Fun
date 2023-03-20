@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             this.region = region;
           });
+          Navigator.of(context).pop(); //누르면 자동으로 뒤로가기
         },
       ),
       body: FutureBuilder<List<StatModel>>(
