@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:random_page/component/number_row.dart';
 import 'package:random_page/constant/color.dart';
 import 'package:random_page/screen/settings_screen.dart';
 
@@ -126,24 +127,13 @@ class _Body extends StatelessWidget {
               .entries //값이 키와 벨류값으로 들오 오는 것
               .map(
                 (x) => Padding(
-                  padding: EdgeInsets.only(
-                      bottom: x.key == 2
-                          ? 0
-                          : 16.0), //x값이 2일경우에는 0을 넣어주고, 아니면 16pixel을 넣어줘라는 알고리즘
-                  child: Row(
-                    children: x.value
-                        .toString()
-                        .split('')
-                        .map(
-                          (y) => Image.asset(
-                            'asset/img/$y.png',
-                            height: 70.0,
-                            width: 50.0,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
+                    padding: EdgeInsets.only(
+                        bottom: x.key == 2
+                            ? 0
+                            : 16.0), //x값이 2일경우에는 0을 넣어주고, 아니면 16pixel을 넣어줘라는 알고리즘
+                    child: NumberRow(
+                      number: x.value,
+                    )),
               )
               .toList()),
     );

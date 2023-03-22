@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:random_page/component/number_row.dart';
 import 'package:random_page/constant/color.dart';
 
 class SettingScreen extends StatefulWidget {
   final int maxNumber;
+
   const SettingScreen({required this.maxNumber, Key? key}) : super(key: key);
 
   @override
@@ -10,7 +12,16 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  double maxNumber = 1000;
+  double maxNumber = 1000; //처음 시작할때는 1000이 초기화면
+//settingScreenState가 재생성 될때 initState가 생성된다.
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    maxNumber = widget.maxNumber.toDouble();
+  } // 초기화면 이후 initState가 실행된다. 다시 말해 onpressed가 실행된 이후
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,19 +68,9 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Row(
-          children: maxNumber //onchanged가 double을 받기 때문에 .toint로 변경을 해줘야 한다.
-              .toInt()
-              .toString()
-              .split('')
-              .map(
-                (e) => Image.asset(
-                  'asset/img/$e.png',
-                  width: 50.0,
-                  height: 70.0,
-                ),
-              )
-              .toList()),
+      child: NumberRow(
+        number: maxNumber.toInt(),
+      ),
     );
   }
 }
