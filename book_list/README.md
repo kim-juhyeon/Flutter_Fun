@@ -1,5 +1,4 @@
 # book_list
-
 1. ListScreen(목록화면)
 2. DAtailScreen (상세화면)
 
@@ -8,7 +7,7 @@
 2. (UI) 도서 상세
 
 # MODEL
-1. Book
+Book
 1-1. Tiltle
 1-2. subtitle
 1-3. description
