@@ -1,5 +1,6 @@
 # google_map
 # Flutter Stack
+# ⚠️ Unmaintained ⚠️
 
 [![Build Status][build-badge]][build]
 [![Version][version-badge]][package]
