@@ -1,6 +1,10 @@
 # google_map
+# Flutter Stack
 
-A new Flutter project.
+[![Build Status][build-badge]][build]
+[![Version][version-badge]][package]
+[![MIT License][license-badge]][license]
+
 
 ## Getting Started
 
