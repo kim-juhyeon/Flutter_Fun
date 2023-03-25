@@ -3,7 +3,7 @@ import 'package:book_list/models/book.dart';
 class Bookrepository {
   //
   final List<Book> _dummyBooks = [
-    //Book 모델 객체를 가지고 있는 더미에 Book의 정보들을 포함 시킨다.
+    //Book 모델 객체를 가지고 있는 더미에 Book의 아래정보들을 포함 시킨다.
 
     Book(
       title: '패킺지',

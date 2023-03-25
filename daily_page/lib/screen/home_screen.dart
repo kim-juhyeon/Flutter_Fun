@@ -137,7 +137,7 @@ class _BottomPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Image.asset(
-        'asset/img/middle_image.png',
+        'asset/img/im1.png',
       ),
     );
   }

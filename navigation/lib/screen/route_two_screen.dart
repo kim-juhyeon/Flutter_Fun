@@ -46,3 +46,4 @@ class RouteTwoScreen extends StatelessWidget {
 }
 //arguments 는 pop,push 진행시 인자 값을 같이 전달 할 수 있게 하는 함수이다.
 //pushNamed 를 이용하면 arguments를 이용할 수 있음 바로!
+//pushReplacementNamed 의 경우 two -> three 그리고 three -> two 'pop'할 경우에는 two가 사라짐

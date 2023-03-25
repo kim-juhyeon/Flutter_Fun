@@ -46,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle.dark); //상태바가 검은색으로 변경
     return Scaffold(
       body: PageView(
         controller: controller,
