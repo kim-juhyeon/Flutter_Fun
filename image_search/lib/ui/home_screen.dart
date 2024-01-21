@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // final api = PixabayApi();
   final _controller =  TextEditingController();
-  List<Photo> _photos = [];
+  // List<Photo> _photos = [];
  //빈 리스트로 두었다가 변환된 Photo 를 Photos에 담는다.
 
 
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final photoProvider = PhotoProvider.of(context); //of의 함수를 지정해줘서 context를 제공합니다. InheritedWidget의 of
+    final viewModel = PhotoProvider.of(context).viewModel; //of의 함수를 지정해줘서 context를 제공합니다. InheritedWidget의 of
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -54,32 +54,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 suffixIcon: IconButton(
                   onPressed: () async {
-                    final photos = await photoProvider.api.fetch(_controller.text);  //photos 는 작명이지만 역할이 있습니다. fetch 를 받는 pohto 모델의 photos 입니다.
-                    setState(() {
-                      _photos = photos; //controller.text 사용자 입력에 따라 pthos 가 _photos에 들어가면서 화면이 다시 그려지게 됩니다.
-                    });
-
+                    viewModel.fetch(_controller.text);
                   },
                   icon: const Icon(Icons.search),
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.all(16.0),
-              shrinkWrap: true,
-              itemCount: _photos.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16, //간격조절
-              ),
-              itemBuilder: (context, index) {
-                final photo = _photos[index];
-                return PhotoWidget(photo: photo);
-              },
-            ),
+          StreamBuilder<List<Photo>>(
+            stream: viewModel.photoStream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData){
+                return const CircularProgressIndicator();
+              }
+              final photos = snapshot.data!;
+              return Expanded(
+                child: GridView.builder(
+                  padding: EdgeInsets.all(16.0),
+                  shrinkWrap: true,
+                  itemCount: photos.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16, //간격조절
+                  ),
+                  itemBuilder: (context, index) {
+                    final photo = photos[index];
+                    return PhotoWidget(photo: photo);
+                  },
+                ),
+              );
+            }
           )
         ],
       ),
