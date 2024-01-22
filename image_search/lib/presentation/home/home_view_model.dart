@@ -3,9 +3,9 @@ import 'dart:collection';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
-import 'package:image_search/data/api.dart';
-import 'package:image_search/data/photo_api_repository.dart';
-import 'package:image_search/model/photo.dart';
+
+import 'package:image_search/domain/repository/photo_api_repository.dart';
+import 'package:image_search/domain/model/photo.dart';
 
 class HomeViewModel with ChangeNotifier {
   final PhotoApiRepository repository;

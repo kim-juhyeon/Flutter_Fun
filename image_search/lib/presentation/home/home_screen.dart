@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:image_search/data/api.dart';
+
 import 'package:image_search/data/photo_provider.dart';
-import 'package:image_search/model/photo.dart';
-import 'package:image_search/ui/home_view_model.dart';
-import 'package:image_search/ui/widget/photo_widget.dart';
+import 'package:image_search/presentation/home/home_view_model.dart';
+import 'package:image_search/presentation/home/component/photo_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 

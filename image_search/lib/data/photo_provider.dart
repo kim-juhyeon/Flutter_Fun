@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:image_search/ui/home_view_model.dart';
+import 'package:image_search/presentation/home/home_view_model.dart';
 
 // InheritedWidget은 어떤 위젯트리에도 원한 객체를 전달해 줄 수 있는 위젯입니다.
 class PhotoProvider extends InheritedWidget {
