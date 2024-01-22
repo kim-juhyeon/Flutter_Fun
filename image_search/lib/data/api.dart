@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:image_search/data/photo_api_repository.dart';
 import 'package:image_search/model/photo.dart';
 
-class PixabayApi {
+class PixabayApi implements PhotoApiRepository{
   final baseUrl = 'https://pixabay.com/api/';
   final key = '41923496-53f97cf4eb13465e0f49b967e';
   Future<List<Photo>> fetch(String query) async {

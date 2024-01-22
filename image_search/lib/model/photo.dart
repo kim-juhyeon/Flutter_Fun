@@ -4,7 +4,7 @@ part 'photo.g.dart';
 part 'photo.freezed.dart';
 
 @freezed
-class Photo with _$Photo {
+class  Photo with _$Photo {
   factory Photo({
     required int id,
     required String tags,

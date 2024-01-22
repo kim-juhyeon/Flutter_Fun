@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_search/data/api.dart';
 import 'package:image_search/data/photo_provider.dart';
 import 'package:image_search/model/photo.dart';
+import 'package:image_search/ui/home_view_model.dart';
 import 'package:image_search/ui/widget/photo_widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key,});
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = PhotoProvider.of(context).viewModel; //of의 함수를 지정해줘서 context를 제공합니다. InheritedWidget의 of
+    final viewModel = context.watch<HomeViewModel>(); //provider
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,30 +63,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          StreamBuilder<List<Photo>>(
-            stream: viewModel.photoStream,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData){
-                return const CircularProgressIndicator();
-              }
-              final photos = snapshot.data!;
-              return Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.all(16.0),
-                  shrinkWrap: true,
-                  itemCount: photos.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16, //간격조절
-                  ),
-                  itemBuilder: (context, index) {
-                    final photo = photos[index];
-                    return PhotoWidget(photo: photo);
-                  },
-                ),
-              );
-            }
+          Expanded(
+            child: GridView.builder(
+              padding: EdgeInsets.all(16.0),
+              shrinkWrap: true,
+              itemCount:viewModel.photos.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16, //간격조절
+              ),
+              itemBuilder: (context, index) {
+                final photo = viewModel.photos[index];
+                return PhotoWidget(photo: photo);
+              },
+            ),
           )
         ],
       ),

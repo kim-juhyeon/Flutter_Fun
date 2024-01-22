@@ -1,17 +1,27 @@
 import 'dart:async';
+import 'dart:collection';
+import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:image_search/data/api.dart';
+import 'package:image_search/data/photo_api_repository.dart';
 import 'package:image_search/model/photo.dart';
 
-class HomeViewModel {
-  final  PixabayApi api;
+class HomeViewModel with ChangeNotifier {
+  final PhotoApiRepository repository;
 
-  final _photoScreamController = StreamController<List<Photo>>()..add([]); //기존 photo를 담아주는 데이터를 없에고 controller로 대체합니다. 최초에는 데이터가 없으므로 circulr가 보이는데 add를 추가하여 빈 값을 출력하게 합니다.
-  Stream<List<Photo>> get photoStream => _photoScreamController.stream;
+  List<Photo> _photos = [];
 
-  HomeViewModel(this.api);
+  UnmodifiableListView<Photo> get photos =>
+      UnmodifiableListView(
+          _photos); //내부적으로는 수정할 수 있게 하지만, 외부에서는 photos를 수정하지 못하게 합니다.
+
+  HomeViewModel(this.repository);
+
+
   Future<void> fetch(String query) async {
-    final result = await api.fetch(query);
-    _photoScreamController.add(result);
+    final result = await repository.fetch(query);
+    _photos = result;
+    notifyListeners(); //감시하는 곳에 화면을 다시 그려지게 합니다.
   }
 }
