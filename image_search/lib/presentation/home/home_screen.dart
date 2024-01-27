@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
 import 'package:image_search/data/photo_provider.dart';
+import 'package:image_search/presentation/home/home_ui_event.dart';
 import 'package:image_search/presentation/home/home_view_model.dart';
 import 'package:image_search/presentation/home/component/photo_widget.dart';
 import 'package:http/http.dart' as http;
@@ -16,14 +18,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  StreamSubscription? _subscription;
   // final api = PixabayApi();
   final _controller =  TextEditingController();
   // List<Photo> _photos = [];
  //빈 리스트로 두었다가 변환된 Photo 를 Photos에 담는다.
-
+@override
+  void initState() {
+    super.initState();
+    Future.microtask((){
+      final viewmodel = context.read<HomeViewModel>();
+      _subscription = viewmodel.eventStream.listen((event) {
+        event.when(showSnackBar: (message){
+          final snackBar = SnackBar(content: Text(message));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        });
+      });
+    });
+  }
 
   @override
   void dispose() {
+    _subscription?.cancel();
     // TODO: implement dispose
     _controller.dispose();
   }

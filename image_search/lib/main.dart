@@ -30,3 +30,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+///TODO
+///사용자가 HomeScreen에서 데이터를 요청합니다.
+// HomeViewModel은 PhotoApiRepository 인터페이스를 통해 데이터를 요청합니다.
+// PhotoApiRepositoryImpl 구현체는 PixabayApi를 사용하여 실제 데이터를 가져옵니다.
+// 가져온 데이터는 HomeViewModel을 통해 UI에 표시됩니다.
