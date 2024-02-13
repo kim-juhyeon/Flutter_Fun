@@ -17,7 +17,7 @@ jobs :
 
     steps :
       - name : Checkout Respository
-        users : actions/Checkout@v3
+        uses : actions/Checkout@v3
 
       - name : Set Up Java
         uses : actions/setup-java@v3.12.0
