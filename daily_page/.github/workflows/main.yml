@@ -1,0 +1,66 @@
+name : "Build & GitAction & Test"
+
+on :
+  pull_request :
+    branches :
+      - dev
+      - test
+  push :
+    branches :
+      - dev
+      - test
+
+jobs :
+  build :
+    name : "Build & GitAction & Test"
+    runs-on : macos-latest
+
+    steps :
+      - name : Checkout Respository
+        users : actions/Checkout@v3
+
+      - name : Set Up Java
+        uses : actions/setup-java@v3.12.0
+        with :
+          distributions : 'oracle'
+          java-version : '17'
+      - name : Set Up Flutter
+        uses : jju/flutter-action@v2
+        with :
+          flutter-version : '3.13.1'
+          channel : 'stable'
+
+      - name : Install Dependencies
+        run : flutter pub get
+
+      - name : Test Flutter app
+        run : flutter test
+
+      - name : Build APK
+        run: flutter build apk --release
+
+      - name : Build appBundle
+        run : flutter build appbundle
+
+      - name : Build IPA
+        run :
+          flutter build ipa --no-codesign
+      - name : Compress Archives and IPAs
+        run :
+          cd build
+          tar -czf ios_build.tar.gz ios
+
+      - name : Upload Artifacts
+        uses : actions/upload-artifact@v2
+        with :
+          name : Releases
+          path :
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/releases/app-release.aab
+            build/ios_build.tar.gz
+      - name : Create Release
+        uses : ncipollo/release-action@v1
+        with :
+          artifacts : "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release.aab,build/ios_build.tar.gz"
+          tag : v1.0 ${{v.1.0}}
+          token : ${{ACTIONTEST}}
