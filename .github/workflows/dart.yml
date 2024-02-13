@@ -71,4 +71,4 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: "위에서 설정한 WEBHOOK URL"
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_WEBHOOK_TYPE: https://i-develop-hq.slack.com/oauth?client_id=3939684113956.6629784081842&scope=incoming-webhook&user_scope=&redirect_uri=&state=&granular_bot_scope=1&single_channel=0&install_redirect=oauth&tracked=1&team=1
