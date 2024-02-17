@@ -6,5 +6,5 @@ void main() {
     const MaterialApp(
       home: HomeScreen(),
     ),
-  );
+  ); //확인
 }

@@ -1,0 +1,74 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Note: This workflow uses the latest stable version of the Dart SDK.
+      # You can specify other versions if desired, see documentation here:
+      # https://github.com/dart-lang/setup-dart/blob/main/README.md
+      # - uses: dart-lang/setup-dart@v1
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+      - name: Install dependencies
+        run: dart pub get
+
+      # Uncomment this step to verify the use of 'dart format' on each commit.
+      # - name: Verify formatting
+      #   run: dart format --output=none --set-exit-if-changed .
+
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
+      - name: Analyze project source
+        run: dart analyze
+
+      # Your project will need to have tests in test/ and a dependency on
+      # package:test for this step to succeed. Note that Flutter projects will
+      # want to change this to 'flutter test'.
+      - name: Run tests
+        run: dart test
+      - name: Notify Slack on Failure
+        if: failure() # 이 step은 job이 실패한 경우에만 실행됩니다.
+        id: slack-failure
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "channel": "채널 ID",
+              "attachments": [
+                {
+                  "color": "#ff0000", # 실패시 빨간색
+                  "title": "${{ github.repository }}", # 제목은 깃헙 레포지토리
+                  "title_link": "https://github.com/${{github.repository}}", # 제목 클릭시 레포지토리로 이동
+                  "text": "GitHub Action 실패 :x:",
+                  "fields": [
+                    {
+                      "title": "Repository",
+                      "value": "${{ github.repository }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Tag",
+                      "value": "${{ github.ref_name }}",
+                      "short": true
+                    }
+                  ]      
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
+          SLACK_WEBHOOK_TYPE: https://i-develop-hq.slack.com/oauth?client_id=3939684113956.6629784081842&scope=incoming-webhook&user_scope=&redirect_uri=&state=&granular_bot_scope=1&single_channel=0&install_redirect=oauth&tracked=1&team=1
