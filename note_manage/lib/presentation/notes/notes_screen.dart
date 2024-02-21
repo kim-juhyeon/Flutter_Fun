@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_manage_app/domain/model/note.dart';
+import 'package:note_manage_app/presentation/add_edit_note/add_edit_note_screen.dart';
 import 'package:note_manage_app/presentation/notes/components/note_item.dart';
 import 'package:note_manage_app/ui/colors.dart';
 
@@ -23,7 +24,9 @@ class NotesScreen extends StatelessWidget {
           elevation: 0,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const AddEditNoteScreen()));
+          },
           child: const Icon(Icons.add),
         ),
         body: Padding(
